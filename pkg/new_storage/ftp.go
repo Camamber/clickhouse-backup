@@ -7,7 +7,6 @@ import (
 	"path"
 	"strings"
 	"time"
-    "path/filepath"
 	"fmt"
 
 	"github.com/AlexAkulov/clickhouse-backup/config"
