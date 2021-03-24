@@ -7,7 +7,6 @@ import (
 	"path"
 	"strings"
 	"time"
-	"fmt"
 
 	"github.com/AlexAkulov/clickhouse-backup/config"
 
@@ -127,7 +126,6 @@ func (f *FTP) MakeDirRecursive(key string) {
 	previous := ""
 	for _, v := range dirs {
 		previous = path.Join(previous, v)
-		fmt.Printf("%v\n", previous)
 		f.client.MakeDir(previous)
 	}
 }
