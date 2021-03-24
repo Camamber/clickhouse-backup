@@ -55,7 +55,14 @@ func (f *FTP) Kind() string {
 func (f *FTP) StatFile(key string) (RemoteFile, error) {
 	// cant list files, so check the dir
 	dir := path.Dir(path.Join(f.Config.Path, key))
-	fmt.Printf("zdarova %v\n", dir)
+	dirs := strings.Split(dir, "/")
+	previous := ""
+	for _, v := range dirs {
+		previous = path.Join(previous, v)
+		fmt.Printf("%v\n", previous)
+		f.client.MakeDir(previous)
+	}
+	
 	entries, err := f.client.List(dir)
 	if err != nil {
 		return nil, err
@@ -118,14 +125,6 @@ func (f *FTP) GetFileReader(key string) (io.ReadCloser, error) {
 }
 
 func (f *FTP) PutFile(key string, r io.ReadCloser) error {
-	fmt.Printf("%v\n", key)
-	dir, _ := filepath.Split(key)
-	dirs := strings.Split(dir, "/")
-	previous := f.Config.Path
-	for _, v := range dirs {
-		previous = path.Join(previous, v)
-		f.client.MakeDir(previous)
-	}
 	return f.client.Stor(path.Join(f.Config.Path, key), r)
 }
 
