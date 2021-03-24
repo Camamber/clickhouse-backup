@@ -55,6 +55,7 @@ func (f *FTP) Kind() string {
 func (f *FTP) StatFile(key string) (RemoteFile, error) {
 	// cant list files, so check the dir
 	dir := path.Dir(path.Join(f.Config.Path, key))
+	fmt.Printf("zdarova %v\n", dir)
 	entries, err := f.client.List(dir)
 	if err != nil {
 		return nil, err

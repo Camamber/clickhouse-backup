@@ -6,7 +6,6 @@ import (
 	"os"
 	"path"
 	"time"
-	"fmt"
 
 	"github.com/AlexAkulov/clickhouse-backup/config"
 
@@ -118,7 +117,6 @@ func (f *FTP) GetFileReader(key string) (io.ReadCloser, error) {
 }
 
 func (f *FTP) PutFile(key string, r io.ReadCloser) error {
-	fmt.Printf("zdarova %v\n", key)
 	return f.client.Stor(key, r)
 }
 

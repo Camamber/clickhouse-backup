@@ -97,7 +97,7 @@ func Upload(cfg *config.Config, backupName string, tablePattern string, diffFrom
 						err = bd.CompressedStreamUpload(backupPath, p, remoteDataFile)
 					}
 					if err != nil {
-						return fmt.Errorf("can't upload zopa: %v", err)
+						return fmt.Errorf("can't upload: %v", err)
 					}
 				}
 			}
