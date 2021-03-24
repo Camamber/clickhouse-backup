@@ -7,6 +7,8 @@ import (
 	"path"
 	"strings"
 	"time"
+    "path/filepath"
+	"fmt"
 
 	"github.com/AlexAkulov/clickhouse-backup/config"
 
@@ -115,6 +117,14 @@ func (f *FTP) GetFileReader(key string) (io.ReadCloser, error) {
 }
 
 func (f *FTP) PutFile(key string, r io.ReadCloser) error {
+	fmt.Printf("%v\n", key)
+	dir, _ := filepath.Split(key)
+	dirs := strings.Split(dir, "/")
+	previous := f.Config.Path
+	for _, v := range dirs {
+		previous = path.Join(previous, v)
+		f.client.MakeDir(previous)
+	}
 	return f.client.Stor(path.Join(f.Config.Path, key), r)
 }
 
