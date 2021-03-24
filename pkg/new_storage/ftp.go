@@ -117,7 +117,8 @@ func (f *FTP) GetFileReader(key string) (io.ReadCloser, error) {
 }
 
 func (f *FTP) PutFile(key string, r io.ReadCloser) error {
-	f.MakeDirRecursive(path.Join(f.Config.Path, key))
+	dir := path.Dir(path.Join(f.Config.Path, key))
+	f.MakeDirRecursive(dir)
 	return f.client.Stor(path.Join(f.Config.Path, key), r)
 }
 
