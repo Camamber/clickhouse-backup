@@ -108,6 +108,7 @@ func (bd *BackupDestination) BackupList() ([]Backup, error) {
 		result = append(result, Backup{
 			m, false, "",
 		})
+		r.Close(); 
 		return nil
 	}); err != nil {
 		return nil, err
